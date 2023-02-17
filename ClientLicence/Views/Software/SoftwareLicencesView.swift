@@ -10,10 +10,13 @@ import SwiftUI
 struct SoftwareLicencesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest var licences: FetchedResults<Licence>
+    @State var isReniewRequested : Bool = false
+    @State var isDeleteRequested : Bool = false
+    @State var selectedLicence : Licence?
     
     init(software: Software) {
         let predicate = NSPredicate(format: "software == %@",argumentArray: [software])
-        _licences = FetchRequest(entity: Licence.entity(), sortDescriptors: [NSSortDescriptor(key: "endDate", ascending: false)], predicate: predicate)
+        _licences = FetchRequest(entity: Licence.entity(), sortDescriptors: [NSSortDescriptor(key: "endDate", ascending: true)], predicate: predicate)
     }
     
     var body: some View {
@@ -27,13 +30,21 @@ struct SoftwareLicencesView: View {
                 TableColumn("Date fin", value: \.endDateString)
                 TableColumn("") { l in
                     HStack{
-                        Button(action: {reniewLicence(licence: l)}){
+                        Button(action: {
+                            selectedLicence = l
+                            isReniewRequested.toggle()
+                        }){
                             Image(systemName: "arrow.uturn.forward.square.fill")
-                        }.font(.title)
+                                .font(.title)
+                        }
                         Spacer()
-                        Button(action: {deleteLicence(licence: l)}){
+                        Button(action: {
+                            selectedLicence = l
+                            isDeleteRequested.toggle()
+                        }){
                             Image(systemName: "trash.square.fill")
-                        }.font(.title)
+                                .font(.title)
+                        }
                         Spacer()
                         NavigationLink(destination: LicenceDetail(licence: l)){
                             Image(systemName: "info.square.fill")
@@ -42,12 +53,17 @@ struct SoftwareLicencesView: View {
                 }.width(100)
             }
         }
+        .confirmationDialog("Êtes-vous sûr de renouveller cette licence?", isPresented: $isReniewRequested){
+            Button("Confirmer", action: reniewLicence)
+        }
+        .confirmationDialog("Êtes-vous sûr de supprimer cette licence?", isPresented: $isDeleteRequested){
+            Button("Supprimer", role: .destructive , action: deleteLicence)
+        }
     }
     
-    
-    private func deleteLicence(licence : Licence){
+    private func deleteLicence(){
         do {
-            viewContext.delete(licence)
+            viewContext.delete(selectedLicence!)
             try viewContext.save()
         } catch {
             let nsError = error as NSError
@@ -56,14 +72,13 @@ struct SoftwareLicencesView: View {
     }
     
     
-    private func reniewLicence(licence : Licence){
+    private func reniewLicence(){
         do {
-            licence.reniew()
+            selectedLicence!.reniew()
             try viewContext.save()
         } catch {
             viewContext.rollback()
             print("error")
-            //message = "Impossible de modifier le client, aucun champ ne peut être vide"
         }
     }
 }

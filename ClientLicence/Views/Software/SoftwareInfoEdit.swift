@@ -1,46 +1,42 @@
 //
-//  SoftwareDetails.swift
+//  SoftwareInfoEdit.swift
 //  ClientLicence
 //
-//  Created by DE TEMMERMAN Pierre on 13/02/2023.
+//  Created by DE TEMMERMAN Pierre on 17/02/2023.
 //
 
 import SwiftUI
 
-struct SoftwareDetails: View {
+struct SoftwareInfoEdit: View {
     var software : Software
-    @State var isShowingAdd : Bool = false
-    @State var isShowingEdit : Bool = false
+    @State private var isEditionMode : Bool = false
     
     var body: some View {
-        NavigationStack{
-            VStack(alignment: .leading) {
-                HStack{
-                    SoftwareInfoEdit(software: software)
-                }
-                Divider()
-                SoftwareLicencesView(software: software)
-                Button(action: {isShowingAdd.toggle()}){
-                    Image(systemName: "plus")
-                }
+        if(!isEditionMode){
+            HStack {
+                SoftwareInformation(software: software)
+                Spacer()
+                Button(action: {isEditionMode.toggle()}){
+                    Label("Editer", systemImage: "pencil")
+                }.controlSize(.large)
             }
-        }
-        .padding(20)
-        .sheet(isPresented: $isShowingAdd){
-            LicenceAddToSoftwareView(software: software)
+        } else{
+            SoftwareEditView(
+                isEditionMode: $isEditionMode,
+                software : software
+            )
         }
     }
 }
 
-struct SoftwareDetails_Previews: PreviewProvider {
-    
+struct SoftwareInfoEdit_Previews: PreviewProvider {
     static var previews: some View {
         let viewContext = PersistenceController.preview.container.viewContext
         let software : Software = Software(context: viewContext)
         let editor : Editor = Editor(context: viewContext)
         let category : Category = Category(context: viewContext)
         let lt : LicenceType = LicenceType(context: viewContext)
-        
+                
         //Editor
         editor.id = UUID()
         editor.name = "Microsoft"
@@ -62,7 +58,6 @@ struct SoftwareDetails_Previews: PreviewProvider {
         software.category = category
         software.type = lt
         
-        return SoftwareDetails(software: software)
+        return SoftwareInfoEdit(software: software)
     }
 }
-

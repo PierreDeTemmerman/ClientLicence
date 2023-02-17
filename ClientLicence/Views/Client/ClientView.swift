@@ -81,11 +81,10 @@ struct ClientView: View {
             }
         }
         .searchable( text: $search,placement: .sidebar, prompt: "Rechercher un client")
-        .frame(width:1080,height: 720)
+        .frame(minWidth: 720, idealWidth: 1080, minHeight: 480, idealHeight: 720)
         .sheet(isPresented: $isShowingAdd){
             ClientAddView()
-        }
-        
+        }        
     }
     
     private func isSelectedClientDeletable()->Bool{

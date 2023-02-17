@@ -8,52 +8,33 @@
 import SwiftUI
 
 struct LicenceDetail: View {
-    @Environment(\.managedObjectContext) private var viewContext
     var licence : Licence
-    
-    
-    
+        
     var body: some View {
         VStack{
             Text("Licence détaillée")
                 .font(.largeTitle)
-            VStack(alignment: .leading){
-                Text("Client")
-                    .font(.title)
-                ClientInformations(client: licence.client!)
-                Divider()
-                Text("Logiciel")
-                    .font(.title)
-                SoftwareInformation(software: licence.software!)
-                    .padding(.horizontal,10)
-                Divider()
-                Text("Licence")
-                    .font(.title)
-                LicenceInformation(licence:licence)
-                    .padding(10)
-                Spacer()
+            ScrollView{
+                VStack(alignment: .leading){
+                    Text("Client")
+                        .font(.title)
+                    ClientInformations(client: licence.client!)
+                    Divider()
+                    Text("Logiciel")
+                        .font(.title)
+                    SoftwareInformation(software: licence.software!)
+                        .padding(.horizontal,10)
+                    Divider()
+                    Text("Licence")
+                        .font(.title)
+                    LicenceInformation(licence:licence)
+                        .padding(10)
+                    Spacer()
+                }
             }
+            
         }.padding(20)
         
-    }
-    
-    private func reniewLicence(){
-        print("reniew")
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Licence")
-        fetchRequest.predicate = NSPredicate(format: "id == %@", licence.id!.uuidString)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try viewContext.fetch(fetchRequest) as! [Licence]
-            if let licence = results.first {
-                licence.reniew()
-                try viewContext.save()
-            }
-        } catch {
-            viewContext.rollback()
-            print("error")
-            //message = "Impossible de modifier le client, aucun champ ne peut être vide"
-        }
     }
 }
 

@@ -10,23 +10,41 @@ import AppKit
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.openWindow) private var openWindow
     @State var isPresentingClientModal: Bool = false
     @State var isPresentingSoftwareModal: Bool = false
-    
-    var body: some View {        
+    //@State var sections : [String] = ["Licences","Clients","Logiciels"]
+    //@State var selectedSection : String = "Licences"
+    var body: some View {
+        /*NavigationSplitView{
+            List(selection: $selectedSection) {
+                ForEach(sections, id: \.self){ section in
+                    Text(section)
+                }
+            }
+            .padding(10)
+        }detail:{
+            switch selectedSection{
+            case "Licences" : LicenceTableView().padding(20)
+            case "Clients" : ClientView()
+            case "Logiciels" : SoftwareView()
+            default : Text("Erreur")
+            }
+        }*/
         NavigationStack{
             VStack {
                 HStack {
+                    Spacer()
                     Button(action: {isPresentingClientModal.toggle()}) {
-                        Text("Client")
-                    }
+                        Label("Clients", systemImage: "person.2.fill")
+                    }.controlSize(.large)
+                    Spacer()
                     Button(action: {isPresentingSoftwareModal.toggle()}) {
-                        Text("Logiciel")
-                    }
+                        Label("Logiciels", systemImage: "desktopcomputer")
+                    }.controlSize(.large)
+                    Spacer()
                 }
+                Divider()
                 LicenceTableView()
-                    .padding(20)
             }
             .sheet(isPresented: $isPresentingClientModal) {
                 ClientView()
@@ -34,12 +52,13 @@ struct ContentView: View {
             .sheet(isPresented: $isPresentingSoftwareModal) {
                 SoftwareView()
             }
+            .padding(20)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
     }
 }
