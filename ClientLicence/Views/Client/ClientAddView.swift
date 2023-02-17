@@ -24,7 +24,7 @@ struct ClientAddView: View {
             VStack(alignment: .leading){
                 Text("Nom du client")
                 TextField("Requis",text: $name)
-                Text("Adresse email")
+                Text("Adresse email ")
                 TextField("Requis", text: $email)
                 Text("Photo de profil")
                 HStack{
