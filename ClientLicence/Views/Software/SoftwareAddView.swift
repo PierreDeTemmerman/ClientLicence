@@ -36,52 +36,57 @@ struct SoftwareAddView: View {
     @FetchRequest(
         entity: LicenceType.entity(),
         sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]
-    ) var licenceTypes: FetchedResults<LicenceType>    
+    ) var licenceTypes: FetchedResults<LicenceType>
     
     var body: some View {
-        VStack {
-            Text("Ajout d'un logiciel")
-                .font(.largeTitle)
+        if(editors.isEmpty || categories.isEmpty || licenceTypes.isEmpty){
+            Text("Impossible de créer un logiciel actuellement, assurez vous d'avoir ajouté au minimum une catégorie, un éditeur et un type de licence dans les paramètres")
                 .padding(20)
-            VStack(alignment: .leading){
-                Text("Nom du logiciel")
-                TextField("Requis",text: $name)
-                Text("Description")
-                TextField("Optionnel", text: $info)
-                Text("Lien")
-                TextField("Optionnel",text: $link)
+        }else{
+            VStack {
+                Text("Ajout d'un logiciel")
+                    .font(.largeTitle)
+                    .padding(20)
+                VStack(alignment: .leading){
+                    Text("Nom du logiciel")
+                    TextField("Requis",text: $name)
+                    Text("Description")
+                    TextField("Optionnel", text: $info)
+                    Text("Lien")
+                    TextField("Optionnel",text: $link)
+                    HStack{
+                        DatePicker("Date de création",selection: $releaseDate,displayedComponents: .date)
+                        Picker(selection: $selectedEditorIndex, label: Text("Editeur")) {
+                            ForEach(editors.indices, id:\.self){ i in
+                                Text(editors[i].name!)
+                            }
+                        }
+                    }
+                    HStack{
+                        Picker(selection: $selectedCategoryIndex, label: Text("Catégorie")) {
+                            ForEach(categories.indices, id:\.self){ i in
+                                Text(categories[i].name!)
+                            }
+                        }
+                        Picker(selection: $selectedLicenceTypeIndex, label: Text("Type de licence")) {
+                            ForEach(licenceTypes.indices, id:\.self){ i in
+                                Text(licenceTypes[i].name!)
+                            }
+                        }
+                    }
+                }.padding(20)
+                Divider()
                 HStack{
-                    DatePicker("Date de création",selection: $releaseDate,displayedComponents: .date)
-                    Picker(selection: $selectedEditorIndex, label: Text("Editeur")) {
-                        ForEach(editors.indices, id:\.self){ i in
-                            Text(editors[i].name!)
-                        }
+                    Text(message ?? "")
+                        .font(.footnote)
+                        .foregroundColor(isError ? .red : .green)
+                        .padding(10)
+                    Spacer()
+                    Button(action: addSoftware){
+                        Label("Ajouter", systemImage: "checkmark")
                     }
-                }
-                HStack{
-                    Picker(selection: $selectedCategoryIndex, label: Text("Catégorie")) {
-                        ForEach(categories.indices, id:\.self){ i in
-                            Text(categories[i].name!)
-                        }
-                    }
-                    Picker(selection: $selectedLicenceTypeIndex, label: Text("Type de licence")) {
-                        ForEach(licenceTypes.indices, id:\.self){ i in
-                            Text(licenceTypes[i].name!)
-                        }
-                    }
-                }
-            }.padding(20)
-            Divider()
-            HStack{
-                Text(message ?? "")
-                    .font(.footnote)
-                    .foregroundColor(isError ? .red : .green)
                     .padding(10)
-                Spacer()
-                Button(action: addSoftware){
-                    Label("Ajouter", systemImage: "checkmark")
                 }
-                .padding(10)
             }
         }
     }
@@ -122,6 +127,7 @@ struct SoftwareAddView: View {
         selectedLicenceTypeIndex = 0
         selectedCategoryIndex = 0
     }
+    
 }
 
 struct SoftwareAddView_Previews: PreviewProvider {

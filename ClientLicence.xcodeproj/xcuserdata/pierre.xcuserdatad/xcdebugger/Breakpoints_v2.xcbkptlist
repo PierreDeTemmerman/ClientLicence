@@ -7,47 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8E923A34-5360-4DD7-BDEB-8328C77F41E0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientLicence/Views/Settings/EditorAddView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "addEditor()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B16CB1A3-B77B-498D-ADED-70504563F945"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientLicence/Views/Settings/LicenceType/LicenceTypeAddView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "addLicenceType()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2C94820F-8750-4438-BAB9-41FD5CB1A907"
+            uuid = "EE866A53-DD36-4631-895F-87F9F719CE4C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClientLicence/Views/Software/SoftwareAddView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "addSoftware()"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,15 +23,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CC5F4FAA-993B-4F3C-94AE-4DC15A503022"
+            uuid = "B39D7397-E8C8-45F1-BE11-930B7CFE24C4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClientLicence/Views/Software/SoftwareAddView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "addSoftware()"
             landmarkType = "7">
          </BreakpointContent>
@@ -71,33 +39,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "081C794A-EC79-4EF8-AD69-F5A1C1AADF54"
+            uuid = "A96B2440-F0E7-495B-A7E3-3F37AAED0C97"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClientLicence/Views/Licence/LicenceDetail.swift"
+            filePath = "ClientLicence/Views/Software/SoftwareView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "body"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "groupedSoftwares"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8F4FE3BC-CEFE-47F5-B4CA-F362A69EECAA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientLicence/Model/LicenceExtension.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "reniew()"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A96B2440-F0E7-495B-A7E3-3F37AAED0C97 - 8dd829a1bd625c5c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientLicence.SoftwareView.groupedSoftwares.getter : Swift.Dictionary&lt;Swift.String, Swift.Array&lt;ClientLicence.Software&gt;&gt;"
+                  moduleName = "ClientLicence"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pierre/Documents/ProjetTest/ClientLicence/ClientLicence/Views/Software/SoftwareView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "120">
+               </Location>
+               <Location
+                  uuid = "A96B2440-F0E7-495B-A7E3-3F37AAED0C97 - 13148a439645221e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (ClientLicence.Software) -&gt; Swift.String in ClientLicence.SoftwareView.groupedSoftwares.getter : Swift.Dictionary&lt;Swift.String, Swift.Array&lt;ClientLicence.Software&gt;&gt;"
+                  moduleName = "ClientLicence"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pierre/Documents/ProjetTest/ClientLicence/ClientLicence/Views/Software/SoftwareView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

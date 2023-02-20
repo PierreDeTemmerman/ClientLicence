@@ -1,16 +1,8 @@
-//
-//  LicenceDetail.swift
-//  ClientLicence
-//
-//  Created by DE TEMMERMAN Pierre on 16/02/2023.
-//
 
 import SwiftUI
 
 struct LicenceDetail: View {
     let licence : Licence
-    
-    
     var body: some View {
         VStack{
             Button(action: {exportPDF()}){
