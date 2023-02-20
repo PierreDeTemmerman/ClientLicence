@@ -39,6 +39,7 @@
 		8FBEC1F52995361000176DE9 /* EditorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEC1F42995361000176DE9 /* EditorSettingsView.swift */; };
 		8FCA1A40299FC65C0093B69E /* SoftwareInfoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA1A3F299FC65C0093B69E /* SoftwareInfoEdit.swift */; };
 		8FCA1A42299FC6F20093B69E /* SoftwareEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA1A41299FC6F20093B69E /* SoftwareEditView.swift */; };
+		8FF68E6429A3781A0001661D /* LicencePDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF68E6329A3781A0001661D /* LicencePDFView.swift */; };
 		8FF9BC232994F095008879D7 /* ClientLicenceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9BC222994F095008879D7 /* ClientLicenceApp.swift */; };
 		8FF9BC252994F095008879D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9BC242994F095008879D7 /* ContentView.swift */; };
 		8FF9BC2A2994F096008879D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FF9BC292994F096008879D7 /* Preview Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		8FBEC1F42995361000176DE9 /* EditorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSettingsView.swift; sourceTree = "<group>"; };
 		8FCA1A3F299FC65C0093B69E /* SoftwareInfoEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareInfoEdit.swift; sourceTree = "<group>"; };
 		8FCA1A41299FC6F20093B69E /* SoftwareEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareEditView.swift; sourceTree = "<group>"; };
+		8FF68E6329A3781A0001661D /* LicencePDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicencePDFView.swift; sourceTree = "<group>"; };
 		8FF9BC1F2994F095008879D7 /* ClientLicence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClientLicence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF9BC222994F095008879D7 /* ClientLicenceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientLicenceApp.swift; sourceTree = "<group>"; };
 		8FF9BC242994F095008879D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				8F78FBFE299E487100F60E77 /* LicenceDetail.swift */,
 				8F78FC02299E507600F60E77 /* LicenceInformation.swift */,
 				8F78FC0C299E831200F60E77 /* LicenceTableView.swift */,
+				8FF68E6329A3781A0001661D /* LicencePDFView.swift */,
 			);
 			path = Licence;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				8F48A7B4299D2ABE00BF32FB /* LicenceAddToClientView.swift in Sources */,
 				8FF9BC252994F095008879D7 /* ContentView.swift in Sources */,
 				8F78FBFF299E487100F60E77 /* LicenceDetail.swift in Sources */,
+				8FF68E6429A3781A0001661D /* LicencePDFView.swift in Sources */,
 				8F78FC03299E507600F60E77 /* LicenceInformation.swift in Sources */,
 				8F8E490529965A5B007966D5 /* ClientView.swift in Sources */,
 				8F981AFA299A66640062B45A /* LicenceTypeSettingsView.swift in Sources */,

@@ -14,8 +14,10 @@ struct ClientLicenceApp: App {
     var body: some Scene {
         
         WindowGroup {
+            //PDFView()
+              //  .environment(\.managedObjectContext, persistenceController.container.viewContext)
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+               .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .windowStyle(.hiddenTitleBar)
                 

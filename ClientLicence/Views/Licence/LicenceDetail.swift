@@ -8,33 +8,58 @@
 import SwiftUI
 
 struct LicenceDetail: View {
-    var licence : Licence
-        
+    let licence : Licence
+    
+    
     var body: some View {
         VStack{
-            Text("Licence détaillée")
-                .font(.largeTitle)
+            Button(action: {exportPDF()}){
+                Label("Télécharger le pdf", systemImage: "arrow.down.doc.fill")
+            }.controlSize(.large)
+            ShareLink(item: createTempPDF())
             ScrollView{
-                VStack(alignment: .leading){
-                    Text("Client")
-                        .font(.title)
-                    ClientInformations(client: licence.client!)
-                    Divider()
-                    Text("Logiciel")
-                        .font(.title)
-                    SoftwareInformation(software: licence.software!)
-                        .padding(.horizontal,10)
-                    Divider()
-                    Text("Licence")
-                        .font(.title)
-                    LicenceInformation(licence:licence)
-                        .padding(10)
-                    Spacer()
-                }
+                LicencePDFView(licence: licence)
+                    .frame(width: 496,height: 701)
+            }
+        }
+        .padding(20)
+    }
+    
+    @MainActor
+    func createTempPDF()-> URL{
+        let tempURL : URL = URL.documentsDirectory.appending(path: "licence.pdf")
+        createPDF(url: tempURL)
+        return tempURL
+    }
+    
+    @MainActor
+    func exportPDF() {
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [.pdf]
+        
+        let result = panel.runModal()
+        if result == NSApplication.ModalResponse.OK {
+            createPDF(url: panel.url!)
+        }
+    }
+    
+    @MainActor
+    func createPDF(url : URL){
+        let renderer = ImageRenderer(content: LicencePDFView(licence: licence).frame(width: 496, height: 701))
+        renderer.render { size, context in
+            var box = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            
+            guard let pdf = CGContext(url as CFURL, mediaBox: &box, nil) else {
+                return
             }
             
-        }.padding(20)
-        
+            pdf.beginPDFPage(nil)
+            
+            context(pdf)
+            
+            pdf.endPDFPage()
+            pdf.closePDF()
+        }
     }
 }
 
