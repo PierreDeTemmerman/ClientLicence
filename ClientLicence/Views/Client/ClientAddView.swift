@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ClientAddView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Binding var selectedClient : Client?
+    @Binding var isPresented : Bool
     @State private var name : String = ""
     @State private var email : String = ""
     @State private var profilePicture : NSImage?
@@ -54,6 +56,7 @@ struct ClientAddView: View {
                     .font(.footnote)
                     .foregroundColor(isError ? .red : .green)
                     .padding(10)
+                    .frame(width: 300)
                 Spacer()
                 Button(action: addClient){
                     Label("Ajouter", systemImage: "checkmark")
@@ -71,9 +74,11 @@ struct ClientAddView: View {
         
         do{
             try viewContext.save()
-            isError = false
-            message = "Le client \"\(client.name!)\" a bien été ajouté"
-            resetInput()
+            selectedClient = client
+            isPresented = false
+            //isError = false
+            //message = "Le client \"\(client.name!)\" a bien été ajouté"
+            //resetInput()
         }catch{
             viewContext.delete(client)
             let nsError = error as NSError
@@ -81,16 +86,19 @@ struct ClientAddView: View {
             isError = true
         }
     }
-    
+    /*
     private func resetInput(){
         name = ""
         email = ""
         profilePicture = nil
     }
+     */
 }
 
 struct ClientAddView_Previews: PreviewProvider {
     static var previews: some View {
-        ClientAddView()
+        @State var isPresented : Bool = true
+        @State var client : Client?
+        return ClientAddView(selectedClient: $client, isPresented: $isPresented)
     }
 }

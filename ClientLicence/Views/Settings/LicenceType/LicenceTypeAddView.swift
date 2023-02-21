@@ -36,15 +36,9 @@ struct LicenceTypeAddView: View {
     private func addLicenceType(){
         let licenceType = LicenceType(context: DBcontext)
         do{
-            licenceType.name = name
+            licenceType.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
             licenceType.days = Int32(days) ?? -1
             licenceType.id = UUID()
-             /*
-              licenceType.name = "Unique"
-            licenceType.days = 123456789
-            licenceType.id = UUID()
-            licenceType.isUnique = true
-              */
             try DBcontext.save()
             addLicenceTypeIsError = false
             addLicenceTypeMessage = "Type de licence \"\(name)\" ajoutée"

@@ -47,15 +47,9 @@ struct ClientLicencesView: View {
                                 .font(.title)
                         }
                         Spacer()
-                        Button(action: {
-                            selectedLicence = l
-                            isDeleteRequested.toggle()
-                        }){
-                            Image(systemName: "trash.square.fill")
-                        }
-                        /*NavigationLink(destination: LicenceDetail(licence: l)){
+                        NavigationLink(destination: LicenceDetail(licence: l)){
                             Image(systemName: "info.square.fill")
-                        }.font(.title)*/
+                        }.font(.title)
                     }
                 }.width(100)
             }

@@ -15,6 +15,8 @@ struct SoftwareAddView: View {
     @State private var releaseDate : Date = Date()
     @State private var message : String?
     @State private var isError : Bool = false
+    @Binding var selectedSoftware : Software?
+    @Binding var isPresented : Bool
     
     //Editors
     @State var selectedEditorIndex : Int = 0
@@ -39,56 +41,52 @@ struct SoftwareAddView: View {
     ) var licenceTypes: FetchedResults<LicenceType>
     
     var body: some View {
-        if(editors.isEmpty || categories.isEmpty || licenceTypes.isEmpty){
-            Text("Impossible de créer un logiciel actuellement, assurez vous d'avoir ajouté au minimum une catégorie, un éditeur et un type de licence dans les paramètres")
+        VStack {
+            Text("Ajout d'un logiciel")
+                .font(.largeTitle)
                 .padding(20)
-        }else{
-            VStack {
-                Text("Ajout d'un logiciel")
-                    .font(.largeTitle)
-                    .padding(20)
-                VStack(alignment: .leading){
-                    Text("Nom du logiciel")
-                    TextField("Requis",text: $name)
-                    Text("Description")
-                    TextField("Optionnel", text: $info)
-                    Text("Lien")
-                    TextField("Optionnel",text: $link)
-                    HStack{
-                        DatePicker("Date de création",selection: $releaseDate,displayedComponents: .date)
-                        Picker(selection: $selectedEditorIndex, label: Text("Editeur")) {
-                            ForEach(editors.indices, id:\.self){ i in
-                                Text(editors[i].name!)
-                            }
-                        }
-                    }
-                    HStack{
-                        Picker(selection: $selectedCategoryIndex, label: Text("Catégorie")) {
-                            ForEach(categories.indices, id:\.self){ i in
-                                Text(categories[i].name!)
-                            }
-                        }
-                        Picker(selection: $selectedLicenceTypeIndex, label: Text("Type de licence")) {
-                            ForEach(licenceTypes.indices, id:\.self){ i in
-                                Text(licenceTypes[i].name!)
-                            }
-                        }
-                    }
-                }.padding(20)
-                Divider()
+            VStack(alignment: .leading){
+                Text("Nom du logiciel")
+                TextField("Requis",text: $name)
+                Text("Description")
+                TextField("Optionnel", text: $info)
+                Text("Lien")
+                TextField("Optionnel",text: $link)
                 HStack{
-                    Text(message ?? "")
-                        .font(.footnote)
-                        .foregroundColor(isError ? .red : .green)
-                        .padding(10)
-                    Spacer()
-                    Button(action: addSoftware){
-                        Label("Ajouter", systemImage: "checkmark")
+                    DatePicker("Date de création",selection: $releaseDate,displayedComponents: .date)
+                    Picker(selection: $selectedEditorIndex, label: Text("Editeur")) {
+                        ForEach(editors.indices, id:\.self){ i in
+                            Text(editors[i].name!)
+                        }
                     }
-                    .padding(10)
                 }
+                HStack{
+                    Picker(selection: $selectedCategoryIndex, label: Text("Catégorie")) {
+                        ForEach(categories.indices, id:\.self){ i in
+                            Text(categories[i].name!)
+                        }
+                    }
+                    Picker(selection: $selectedLicenceTypeIndex, label: Text("Type de licence")) {
+                        ForEach(licenceTypes.indices, id:\.self){ i in
+                            Text(licenceTypes[i].name!)
+                        }
+                    }
+                }
+            }.padding(20)
+            Divider()
+            HStack{
+                Text(message ?? "")
+                    .font(.footnote)
+                    .foregroundColor(isError ? .red : .green)
+                    .padding(10)
+                Spacer()
+                Button(action: addSoftware){
+                    Label("Ajouter", systemImage: "checkmark")
+                }
+                .padding(10)
             }
         }
+        
     }
     
     private func addSoftware(){
@@ -107,9 +105,10 @@ struct SoftwareAddView: View {
         
         do{
             try viewContext.save()
-            
-            message = "Le logiciel \"\(software.name!)\" a bien été ajouté"
-            resetInput()
+            selectedSoftware = software
+            isPresented = false
+            //message = "Le logiciel \"\(software.name!)\" a bien été ajouté"
+            //resetInput()
         }catch{
             viewContext.delete(software)
             let nsError = error as NSError
@@ -132,6 +131,8 @@ struct SoftwareAddView: View {
 
 struct SoftwareAddView_Previews: PreviewProvider {
     static var previews: some View {
-        SoftwareAddView()
+        @State var software : Software?
+        @State var isPresented = true
+        return SoftwareAddView(selectedSoftware: $software, isPresented: $isPresented)
     }
 }

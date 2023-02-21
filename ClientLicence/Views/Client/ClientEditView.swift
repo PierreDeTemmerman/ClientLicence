@@ -55,7 +55,6 @@ struct ClientEditView: View {
                 }
                 TextField("Requis",text : $name)
                 TextField("Requis", text : $email)
-                //Text(client.id!.uuidString)
             }.frame(width: 200)
             Spacer()
             VStack {

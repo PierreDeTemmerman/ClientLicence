@@ -34,7 +34,7 @@ struct EditorAddView: View {
     }
     private func addEditor(){
         let editor = Editor(context: DBcontext)
-        editor.name = name
+        editor.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         editor.id = UUID()
         do{
             try DBcontext.save()

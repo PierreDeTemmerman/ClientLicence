@@ -14,6 +14,8 @@ struct SoftwareView: View {
     @State private var search : String = ""
     @State private var isDeleteRequested : Bool = false
     @State private var isShowingAdd : Bool = false
+    @State private var isShowingImpossibleAdd : Bool = false
+    @State private var isShowingSettings : Bool = false
     @FetchRequest(
         entity: Software.entity(),
         sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]
@@ -53,8 +55,17 @@ struct SoftwareView: View {
                 }
                 HStack(spacing: 5) {
                     //ADD BUTTON
-                    Button(action: {isShowingAdd.toggle()}){
+                    Button(action: {
+                        if addSoftwareAvailable(){
+                            isShowingAdd.toggle()
+                        }else{
+                            isShowingImpossibleAdd.toggle()
+                        }
+                    }){
                         Image(systemName: "plus")
+                    }
+                    .confirmationDialog("Impossible de créer un logiciel sans catégorie, éditeur ou type de licence.\nVoulez-vous les ajouter maintenant?", isPresented: $isShowingImpossibleAdd){
+                        Button("Ajouter", action: {isShowingSettings.toggle()})
                     }
                     //DELETE BUTTON
                     if selectedSoftware != nil{
@@ -81,7 +92,24 @@ struct SoftwareView: View {
         .searchable( text: $search,placement: .sidebar, prompt: "Rechercher un logiciel")
         .frame(minWidth: 720, idealWidth: 1080, minHeight: 480, idealHeight: 720)
         .sheet(isPresented: $isShowingAdd){
-            SoftwareAddView()
+            SoftwareAddView(selectedSoftware: $selectedSoftware, isPresented: $isShowingAdd)
+        }
+        .sheet(isPresented: $isShowingSettings){
+            SettingsView()
+        }
+    }
+    
+    private func addSoftwareAvailable() -> Bool{
+        let frCategory = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+        let frType = NSFetchRequest<NSFetchRequestResult>(entityName: "LicenceType")
+        let frEditor = NSFetchRequest<NSFetchRequestResult>(entityName: "Editor")
+        do{
+            let cat = try viewContext.count(for: frCategory) != 0
+            let typ = try viewContext.count(for: frType) != 0
+            let edi = try viewContext.count(for: frEditor) != 0
+            return cat && typ && edi
+        }catch{
+            return false
         }
     }
     

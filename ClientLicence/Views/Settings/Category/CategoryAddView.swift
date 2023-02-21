@@ -34,7 +34,7 @@ struct CategoryAddView: View {
     }
     private func addCategory(){
         let category = Category(context: DBcontext)
-        category.name = name
+        category.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         category.id = UUID()
         do{
             try DBcontext.save()

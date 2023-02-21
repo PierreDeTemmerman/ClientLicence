@@ -10,35 +10,20 @@ import AppKit
 import CoreData
 
 struct ContentView: View {
+    @Environment(\.openWindow) var openWindow
     @State var isPresentingClientModal: Bool = false
     @State var isPresentingSoftwareModal: Bool = false
-    //@State var sections : [String] = ["Licences","Clients","Logiciels"]
-    //@State var selectedSection : String = "Licences"
+    
     var body: some View {
-        /*NavigationSplitView{
-            List(selection: $selectedSection) {
-                ForEach(sections, id: \.self){ section in
-                    Text(section)
-                }
-            }
-            .padding(10)
-        }detail:{
-            switch selectedSection{
-            case "Licences" : LicenceTableView().padding(20)
-            case "Clients" : ClientView()
-            case "Logiciels" : SoftwareView()
-            default : Text("Erreur")
-            }
-        }*/
         NavigationStack{
             VStack {
                 HStack {
                     Spacer()
-                    Button(action: {isPresentingClientModal.toggle()}) {
+                    Button(action: {openWindow(id: "client")}) {
                         Label("Clients", systemImage: "person.2.fill")
                     }.controlSize(.large)
                     Spacer()
-                    Button(action: {isPresentingSoftwareModal.toggle()}) {
+                    Button(action: {openWindow(id: "software")}) {
                         Label("Logiciels", systemImage: "desktopcomputer")
                     }.controlSize(.large)
                     Spacer()
@@ -46,15 +31,17 @@ struct ContentView: View {
                 Divider()
                 LicenceTableView()
             }
-            .sheet(isPresented: $isPresentingClientModal) {
-                ClientView()
-            }
-            .sheet(isPresented: $isPresentingSoftwareModal) {
-                SoftwareView()
-            }
             .padding(20)
         }
     }
+    /*
+    func hideButtons() {
+            for window in NSApplication.shared.windows {
+                window.standardWindowButton(NSWindow.ButtonType.zoomButton)!.isHidden = true
+                window.standardWindowButton(NSWindow.ButtonType.closeButton)!.isHidden = true
+                window.standardWindowButton(NSWindow.ButtonType.miniaturizeButton)!.isHidden = true
+            }
+        }*/
 }
 
 struct ContentView_Previews: PreviewProvider {

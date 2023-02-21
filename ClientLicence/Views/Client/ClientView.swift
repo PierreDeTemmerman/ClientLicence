@@ -83,7 +83,7 @@ struct ClientView: View {
         .searchable( text: $search,placement: .sidebar, prompt: "Rechercher un client")
         .frame(minWidth: 720, idealWidth: 1080, minHeight: 480, idealHeight: 720)
         .sheet(isPresented: $isShowingAdd){
-            ClientAddView()
+            ClientAddView(selectedClient: $selectedClient, isPresented: $isShowingAdd)
         }        
     }
     

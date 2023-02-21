@@ -13,12 +13,13 @@ struct CategorySettingsView: View {
         entity: Category.entity(),
         sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]
     )
+    //var selectedCategory = Category?
     var categories: FetchedResults<Category>
     @State private var isShowingAddCategory: Bool = false
     
     var body: some View {
         VStack {
-            List{
+            List(){
                 ForEach(categories, id: \.self) { category in
                     Text(category.name!)
                 }
@@ -30,12 +31,18 @@ struct CategorySettingsView: View {
                 .buttonStyle(.borderless)
                 .frame(width: 30, height: 30)
                 Divider()
+               /* Button(action: {isShowingAddCategory.toggle()}){
+                    Image(systemName: "minus")
+                }
+                //.disabled(isCategoryDeletable(category : selectedCategory))
+                .buttonStyle(.borderless)
+                .frame(width: 30, height: 30)*/
                 Spacer()
             }
-            .sheet(isPresented: $isShowingAddCategory){
-                CategoryAddView()
-            }
             .frame(height: 30)
+            .sheet(isPresented: $isShowingAddCategory){
+                            CategoryAddView()
+                        }
         }
     }
 }
